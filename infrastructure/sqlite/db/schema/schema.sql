@@ -4,3 +4,8 @@ CREATE TABLE books (
     release_year INTEGER NOT NULL,
     total_page INTEGER NOT NULL
 );
+
+CREATE TABLE categories (
+    id INTEGER PRIMARY KEY,
+    name text NOT NULL
+);

@@ -12,3 +12,8 @@ type Book struct {
 	ReleaseYear int64
 	TotalPage   int64
 }
+
+type Category struct {
+	ID   int64
+	Name string
+}
