@@ -35,7 +35,7 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	log.Println(authors)
+	log.Println("Not yet inserted.", authors)
 
 	// create an author
 	insertedAuthor, err := queries.CreateAuthor(ctx, tutorial.CreateAuthorParams{
@@ -45,13 +45,14 @@ func run() error {
 	if err != nil {
 		return err
 	}
-	log.Println(insertedAuthor)
+	log.Println("Inserted: ", insertedAuthor)
 
 	// get the author we just inserted
 	fetchedAuthor, err := queries.GetAuthor(ctx, insertedAuthor.ID)
 	if err != nil {
 		return err
 	}
+	log.Println("Fetched: ", fetchedAuthor)
 
 	// prints true
 	log.Println(reflect.DeepEqual(insertedAuthor, fetchedAuthor))
