@@ -54,9 +54,37 @@ func run() error {
 	}
 	log.Println("Fetched: ", fetchedAuthor)
 
+	// インサートしてみた
+	insertedAuthor2, err := queries.CreateAuthor(ctx, tutorial.CreateAuthorParams{
+		Name: "田中",
+		Bio:  sql.NullString{String: "", Valid: true},
+	})
+	if err != nil {
+		return err
+	}
+	log.Println("Inserted: ", insertedAuthor2)
+
+	// インサートしたものが参照できるかテスト
+	fetchedAuthor2, err := queries.GetAuthor(ctx, insertedAuthor2.ID)
+	if err != nil {
+		return err
+	}
+	log.Println("Fetched: ", fetchedAuthor2)
+
+	// テーブル内の対象レコードが全て取れるかテスト
+	authors2, err := queries.ListAuthors(ctx)
+	if err != nil {
+		return err
+	}
+	log.Println(authors2)
+
 	// prints true
 	log.Println(reflect.DeepEqual(insertedAuthor, fetchedAuthor))
+
+	log.Println(reflect.DeepEqual(insertedAuthor2, fetchedAuthor2))
+
 	return nil
+
 }
 
 func main() {
