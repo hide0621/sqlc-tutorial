@@ -4,13 +4,21 @@
 
 package dbgen
 
-import ()
+import (
+	"database/sql"
+)
 
 type Book struct {
 	ID          int64
 	Name        string
 	ReleaseYear int64
 	TotalPage   int64
+}
+
+type BookCategory struct {
+	ID         int64
+	BookID     sql.NullInt64
+	CategoryID sql.NullInt64
 }
 
 type Category struct {
