@@ -41,3 +41,25 @@ func (q *Queries) FullScanOfBooks(ctx context.Context) ([]Book, error) {
 	}
 	return items, nil
 }
+
+const insertBooks = `-- name: InsertBooks :exec
+INSERT INTO books (
+    name,
+    release_year,
+    total_page
+) VALUES (
+    ?, ?, ?
+)
+RETURNING id, name, release_year, total_page
+`
+
+type InsertBooksParams struct {
+	Name        string
+	ReleaseYear int64
+	TotalPage   int64
+}
+
+func (q *Queries) InsertBooks(ctx context.Context, arg InsertBooksParams) error {
+	_, err := q.db.ExecContext(ctx, insertBooks, arg.Name, arg.ReleaseYear, arg.TotalPage)
+	return err
+}
